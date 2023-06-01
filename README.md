@@ -18,3 +18,9 @@ Remove Friend
 ##### USEFUL LINKS
 
 https://stackblitz.com/edit/nv5esw?file=index.html
+
+https://getbootstrap.com/docs/5.3/examples/
+
+https://getbootstrap.com/docs/5.3/getting-started/introduction/
+
+https://icon-sets.iconify.design/

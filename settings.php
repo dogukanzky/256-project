@@ -1,5 +1,6 @@
 <?php
 include($_SERVER["DOCUMENT_ROOT"] . "/core/__init__.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/helpers/get-file.helper.php");
 
 $pm = new UsersModel($db);
 $id = $_SESSION['user_id'];
@@ -10,14 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
     if (strlen(trim($passwordInput)) !== 0 && strlen(trim($passwordAgainInput)) !== 0 && $passwordInput === $passwordAgainInput) {
         if (password_verify($floatingPassword, $user['password'])) {
             $pm->changePassword($user['id'], $passwordAgainInput);
-            $pm->update_User($id, $name, $lastname, $email, $birth_date, $bio);
+            if (count($_FILES) > 0) {
+                $newImage = getFile("newImage", "user-img-");
+            }
+            $pm->update_User($id, $name, $lastname, $email, $birth_date, isset($newImage) && $newImage ? $newImage : $user["picture"], $bio);
             $res = 1;
         } else {
             echo "WRONG PASSWORD";
             $res = 0;
         }
     } else {
-        $pm->update_User($id, $name, $lastname, $email, $birth_date, $bio);
+        if (count($_FILES) > 0) {
+            $newImage = getFile("newImage", "user-img-");
+        }
+        $pm->update_User($id, $name, $lastname, $email, $birth_date, isset($newImage) && $newImage ? $newImage : $user["picture"], $bio);
         $res = 1;
     }
     $user = $pm->findOne($id);
@@ -50,19 +57,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
         <div class="d-flex flex-column gap-3">
             <input type="file" style="display:none" name="newImage" id="newImage">
             <div class="d-flex flex-row gap-2">
-                <div class="border-rounded" style="position:relative;width: 200px;">
+                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                    style="position:relative;width: 200px;">
                     <div id="image-overlay"
-                        class="w-100 h-100 text-center d-flex align-items-center justify-content-center bg-dark opacity-50">
+                        class="w-100 h-100 text-center d-flex align-items-center justify-content-center bg-dark opacity-50 rounded-circle">
                         <p class="text-white d-flex align-items-center justify-content-center gap-1 opacity-100">
                             <iconify-icon icon="line-md:image" width="24" height="24"></iconify-icon>
                             ADD NEW IMAGE
                         </p>
                     </div>
-                    <?php if (isset($user["picture"])) { ?>
+                    <?php if (isset($user["picture"]) && $user["picture"]) { ?>
                         <img src="<?= filter_var($user["picture"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?>"
-                            class="card-img-top " alt="..." id="post-image" width="200" height="200" class="rounded-circle">
+                            style="object-fit:cover;" class="card-img-top rounded-circle " alt="..." id="post-image"
+                            width="200" height="200">
                     <?php } else { ?>
-                        <iconify-icon icon="heroicons:rocket-launch-solid" width="200" height="200" class="text-danger">
+                        <iconify-icon icon="heroicons:rocket-launch-solid" width="150" height="150" class="text-danger">
                         </iconify-icon>
                     <?php } ?>
                 </div>
@@ -117,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
                 <label for="passwordAgainInput">Confirm Your New Password</label>
             </div>
             <div class="text-center w-100">
-                <input type="submit" value="Change" id="changeBtn" class="btn btn-primary">
+                <input type="submit" value="Update" id="changeBtn" class="btn btn-primary">
             </div>
 
             <span class="text-danger" id="passwordError" style="display: none;">Please enter matching
@@ -125,20 +134,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
         </div>
     </form>
     <?php include($_SERVER["DOCUMENT_ROOT"] . "/core/scripts.php"); ?>
-    <script>
-        document.getElementById("image-overlay").addEventListener("click", function () {
-            document.getElementById("newImage").onchange = function (e) {
-                const file = e.target.files[0];
-                const src = URL.createObjectURL(file);
-                const img = document.getElementById("post-image");
-                img.setAttribute("old-src", img.getAttribute("src"));
-                img.setAttribute("src", src);
-            }
-            document.getElementById("image-overlay").onclick = function () {
-                document.getElementById("newImage").click();
-            }
-        });
-    </script>
     <script src="/src/common/js/helpers/show-toast.helper.js"></script>
     <script>
         $(document).ready(function () {
@@ -147,6 +142,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST)) {
                 ?>
                 showToast({ title: "Form Update", color: "warning", description: "<?= $res === 1 ? "Update Succesful" : "ERROR" ?>" });
             <?php } ?>
+            const newImageInput = document.getElementById("newImage");
+            newImageInput.onchange = function (e) {
+                const file = e.target.files[0];
+                const src = URL.createObjectURL(file);
+                let img = $("#post-image");
+
+                if (!img.length) {
+                    img = document.createElement('img');
+                    img.style.objectFit = 'cover';
+                    img.className = 'card-img-top rounded-circle';
+                    img.alt = '...';
+                    img.id = 'post-image';
+                    img.width = '200';
+                    img.height = '200';
+
+                    $("#image-overlay").next().remove();
+                    $(img).insertAfter("#image-overlay");
+                    img = $(img);
+                }
+                img.attr("old-src", img.attr("src"));
+                img.attr("src", src);
+            }
+            const newImageOverlay = document.getElementById("image-overlay");
+            newImageOverlay.onclick = function () {
+                newImageInput.click();
+            }
             // Function to enable/disable the "Change" button based on password validation
             function toggleChangeButton() {
                 var password = $('#passwordInput').val();

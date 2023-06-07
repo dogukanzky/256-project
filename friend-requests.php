@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_SESSION["user_id"])) {
                             data-bs-placement="top" data-bs-title="Visit User">
                             <?php if (isset($request["user.picture"])) { ?>
                                 <img src="<?= $request["user.picture"] ?>" alt="mdo" width="32" height="32"
-                                    class="rounded-circle">
+                                    style="object-fit:cover;" class="rounded-circle">
                             <?php } else { ?>
                                 <iconify-icon icon="heroicons:rocket-launch-solid" width="32" height="32"
                                     class="text-danger"></iconify-icon>

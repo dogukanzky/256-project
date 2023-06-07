@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class="card" style="width: 600px; margin-top: 12px;" data-post-id="<?= $post["id"] ?>">
                 <div class="card-header d-flex align-items-center gap-2 text-decoration-none">
                     <?php if (isset($user["picture"])) { ?>
-                        <img src="<?= filter_var($user["picture"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?>" alt="mdo" width="32"
+                        <img src="<?= filter_var($user["picture"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?>" alt="mdo" width="32" style="object-fit:cover;"
                             height="32" class="rounded-circle">
                     <?php } else { ?>
                         <iconify-icon icon="heroicons:rocket-launch-solid" width="32" height="32" class="text-danger">
@@ -154,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     </div>
 
                 </div>
-                <?php if (isset($post["image"])) { ?>
+                <?php if (isset($post["image"]) && $post["image"]) { ?>
 
                     <img src="<?= filter_var($post["image"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?>" class="card-img-top"
                         alt="POST">

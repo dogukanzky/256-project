@@ -27,13 +27,13 @@ class UsersModel
         return $this->db->lastInsertId();
     }
 
-    public function update_User($userId, $name, $last_name, $email, $birthday, $bio)
+    public function update_User($userId, $name, $last_name, $email, $birthday, $picture, $bio)
     {
-        $sql = "UPDATE users SET name=?, last_name=?, email=?, birth_date=?, bio=? WHERE id=?";
+        $sql = "UPDATE users SET name=?, last_name=?, email=?, birth_date=?,picture=?, bio=? WHERE id=?";
 
         // Assuming you have a database connection object stored in the variable $conn
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$name, $last_name, $email, $birthday, $bio, $userId]);
+        $stmt->execute([$name, $last_name, $email, $birthday, $picture, $bio, $userId]);
 
 
         // Additional code if needed, such as error handling or success messages

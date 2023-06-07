@@ -29,7 +29,8 @@ if (isset($_SESSION["user_id"])) {
             <a href="#" class="d-flex align-items-center gap-2 link-body-emphasis text-decoration-none dropdown-toggle"
                 data-bs-toggle="dropdown" aria-expanded="false">
                 <?php if ($_USER["picture"]) { ?>
-                    <img src="<?= $_USER["picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <img src="<?= $_USER["picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle"
+                        style="object-fit:cover;">
                 <?php } else { ?>
                     <iconify-icon icon="heroicons:rocket-launch-solid" width="24" height="24"
                         class="text-danger"></iconify-icon>

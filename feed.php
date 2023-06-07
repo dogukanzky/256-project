@@ -25,7 +25,8 @@ if (!isset($_SESSION["user_id"])) {
             <div class="card" style="width: 600px;">
                 <div class="card-header">
                     <div href="#" class="d-flex align-items-center gap-2 text-decoration-none">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"
+                            style="object-fit:cover;">
                         <div class="d-flex flex-column">
                             <a href="#" class="d-flex align-items-stretch gap-2 text-decoration-none">Name Lastname</a>
                             <small class="text-body-secondary">1 Jun, 2023</small>

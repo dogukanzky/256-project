@@ -64,7 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
         <div class="card" id="post">
             <div class="card-header d-flex align-items-center gap-2 text-decoration-none">
                 <?php if (isset($post["user.picture"])) { ?>
-                    <img src="<?= $post["user.picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                    <img src="<?= $post["user.picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle"
+                        style="object-fit:cover;">
                 <?php } else { ?>
                     <iconify-icon icon="heroicons:rocket-launch-solid" width="32" height="32"
                         class="text-danger"></iconify-icon>
@@ -92,9 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
                     </div>
                 <?php } ?>
             </div>
-            <div style="position:relative">
-                <img src="<?= $post['image'] ?>" class="card-img-top" alt="..." id="post-image">
-            </div>
+            <?php if (isset($post["image"]) && $post["image"]) { ?>
+                <div style="position:relative">
+                    <img src="<?= $post['image'] ?>" class="card-img-top" alt="..." id="post-image">
+                </div>
+            <?php } ?>
             <div class="card-body">
                 <p class="card-text">
                     <?= filter_var($post['text'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?>
@@ -126,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
                     <div class="card-header">
                         <div class="d-flex align-items-center">
                             <img src="https://example.com/avatar.png" alt="User Avatar" width="32" height="32"
-                                class="rounded-circle">
+                                style="object-fit:cover;" class="rounded-circle">
                             <div class="d-flex flex-column">
                                 <a href="#" class="text-decoration-none">Commenter Name</a>
                                 <small class="text-body-secondary">2 Jun, 2023</small>

@@ -28,7 +28,7 @@ $friend_requests = $friendModel->findRequests($_SESSION["user_id"]);
                                     data-bs-placement="top" data-bs-title="Visit User">
                                     <?php if (isset($request["user.picture"])) { ?>
                                         <img src="<?= $request["user.picture"] ?>" alt="mdo" width="32" height="32"
-                                            class="rounded-circle">
+                                            style="object-fit:cover;" class="rounded-circle">
                                     <?php } else { ?>
                                         <iconify-icon icon="heroicons:rocket-launch-solid" width="32" height="32"
                                             class="text-danger"></iconify-icon>
@@ -117,25 +117,11 @@ $friend_requests = $friendModel->findRequests($_SESSION["user_id"]);
                     <a href="#"
                         class="list-group-item list-group-item-action d-flex align-items-center gap-2 ps-1 w-100"
                         aria-current="true">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"
+                            style="object-fit:cover;">
                         <p class="mb-0">Friend 1</p>
                     </a>
-                    <a href="#"
-                        class="list-group-item list-group-item-action d-flex align-items-center gap-2 ps-1 w-100"
-                        aria-current="true">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                        <p class="mb-0">Friend 2</p>
-                    </a>
-                    <a href="#"
-                        class="list-group-item list-group-item-action d-flex align-items-center gap-2 ps-1 w-100"
-                        aria-current="true">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-                        <p class="mb-0">Friend 3</p>
-                    </a>
                 </div>
-                <a href="/friends.php" class="text-decoration-none mx-auto">
-                    Show More
-                </a>
             </div>
         </div>
     </div>

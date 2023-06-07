@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <?php include($_SERVER["DOCUMENT_ROOT"]."/core/head.php"); ?>
+    <?php include($_SERVER["DOCUMENT_ROOT"] . "/core/head.php"); ?>
 </head>
 
 <body data-bs-theme="dark">
-    <?php include($_SERVER["DOCUMENT_ROOT"]."/layouts/main.php"); ?>
+    <?php include($_SERVER["DOCUMENT_ROOT"] . "/layouts/main.php"); ?>
 
     <div class="mb-3 ms-3">
         <h1 class="display-6 fw-bold d-flex align-items-center gap-2"> <iconify-icon
@@ -21,7 +21,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center gap-2 text-decoration-none">
                                 <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
-                                    class="rounded-circle">
+                                    style="object-fit:cover;" class="rounded-circle">
                                 <a href="#" class="d-flex align-items-stretch gap-2 text-decoration-none"
                                     data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Visit Page">Name
                                     Lastname</a>
@@ -44,7 +44,7 @@
 
 
 
-    <?php include($_SERVER["DOCUMENT_ROOT"]."/core/scripts.php"); ?>
+    <?php include($_SERVER["DOCUMENT_ROOT"] . "/core/scripts.php"); ?>
 </body>
 
 </html>

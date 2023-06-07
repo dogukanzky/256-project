@@ -43,7 +43,8 @@
                         <div class="card-body">
                             <div href="#" class="d-flex align-items-center gap-2 text-decoration-none">
                                 <?php if ($user["picture"]) { ?>
-                                    <img src="<?= $user["picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                                    <img src="<?= $user["picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle"
+                                        style="object-fit:cover;">
                                 <?php } else { ?>
                                     <iconify-icon icon="heroicons:rocket-launch-solid" width="32" height="32"
                                         class="text-danger"></iconify-icon>

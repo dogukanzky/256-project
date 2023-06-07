@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <div class="d-flex text-black position-relative">
                     <div class="position-absolute" style="top:-90px;">
                         <img class="rounded-circle" src="<?= $user['picture'] ?>" alt="Generic placeholder image"
-                            style="width: 180px; border-radius: 10px;">
+                            style="width: 180px;height:180px;object-fit:cover; border-radius: 10px;">
                     </div>
                     <div class="d-flex flex-column" style="margin-left: 200px;">
                         <div class="d-flex flex-row justify-content-between">

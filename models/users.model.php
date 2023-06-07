@@ -97,5 +97,22 @@ class UsersModel
         $stmt->execute([$hashPassw, $id]);
         return true;
     }
+
+    public function getFriends($user_id, $limit = 0)
+    {
+        $sql = "SELECT * FROM users
+        WHERE EXISTS(SELECT * FROM friends WHERE inviter_id IN ($user_id, users.id) AND invited_id IN ($user_id, users.id))
+        AND NOT users.id = $user_id
+        ";
+
+        if ($limit > 0) {
+            $sql .= " LIMIT $limit";
+        }
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    }
 }
 ?>

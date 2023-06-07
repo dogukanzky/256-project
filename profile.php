@@ -241,23 +241,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             });
 
     $("#removeFriend").on("click", "", function () {
- const btn = $(this);
+
+        const btn = $(this);
+        showDeleteModal({
+                title: "Are you sure you want to delete?",
+                onAccept: function () {
         $.ajax({
             method: "DELETE",
             url: "/friend-requests.php", // PHP script to handle the removal of friend
             data: {
                 inviter_id: <?= filter_var($id, FILTER_SANITIZE_SPECIAL_CHARS) ?>
-            }
-        }).done(function (data, res, opt) {
-            if (res === "success") {
-                showToast({
-                     title: "",
-            description: "Friend removed successfully!",
-            color: "success",
-                        });
-                        btn.attr("disabled");
-            }
-        });
+                        }
+                    }).done(function (data, res, opt) {
+                        if (res === "success") {
+                            showToast({
+                                title: "",
+                                description: "Friend removed successfully!",
+                                color: "success",
+                            });
+                            btn.attr("disabled",true);
+                        }
+                    });
+                },
+            });
+
+
 
         });
 });

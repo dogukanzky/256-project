@@ -1,5 +1,7 @@
 <?php
 $url = explode(".", $_SERVER['REQUEST_URI'])[0];
+if ($url === "/profile" && isset($_GET["id"]) && isset($_SESSION["user_id"]) && $_GET["id"] != $_SESSION["user_id"])
+    $url = "";
 ?>
 
 

@@ -1,7 +1,9 @@
 <?php
 $friendModel = new FriendsModel($db);
+$userModel = new UsersModel($db);
 
 $friend_requests = $friendModel->findRequests($_SESSION["user_id"]);
+$friends = $userModel->getFriends($_SESSION["user_id"], 3);
 
 
 ?>
@@ -102,28 +104,38 @@ $friend_requests = $friendModel->findRequests($_SESSION["user_id"]);
     </div>
 
 
+    <?php if (count($friends)) { ?>
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <a href="/friends.php" class="text-decoration-none">
+                    <h4 class="my-0 fw-normal d-flex align-items-center">
+                        <iconify-icon icon="line-md:account-small" width="32" height="32"></iconify-icon>Friends
+                    </h4>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column gap-1 align-items-center justify-content-center">
+                    <div class="list-group w-100">
+                        <?php foreach ($friends as $friend) { ?>
+                            <a href="/profile.php?id=<?= $friend["id"] ?>"
+                                class="list-group-item list-group-item-action d-flex align-items-center gap-2 ps-1 w-100"
+                                aria-current="true">
+                                <?php if ($friend["picture"]) { ?>
+                                    <img src="<?= $friend["picture"] ?>" alt="mdo" width="32" height="32" class="rounded-circle"
+                                        style="object-fit:cover;">
+                                <?php } else { ?>
+                                    <iconify-icon icon="heroicons:rocket-launch-solid" width="24" height="24"
+                                        class="text-danger"></iconify-icon>
+                                <?php } ?>
 
-    <div class="card mb-4 rounded-3 shadow-sm">
-        <div class="card-header py-3">
-            <a href="/friends.php" class="text-decoration-none">
-                <h4 class="my-0 fw-normal d-flex align-items-center">
-                    <iconify-icon icon="line-md:account-small" width="32" height="32"></iconify-icon>Friends
-                </h4>
-            </a>
-        </div>
-        <div class="card-body">
-            <div class="d-flex flex-column gap-1 align-items-center justify-content-center">
-                <div class="list-group w-100">
-                    <a href="#"
-                        class="list-group-item list-group-item-action d-flex align-items-center gap-2 ps-1 w-100"
-                        aria-current="true">
-                        <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"
-                            style="object-fit:cover;">
-                        <p class="mb-0">Friend 1</p>
-                    </a>
+                                <p class="mb-0">
+                                    <?= filter_var($friend["name"] . " " . $friend["last_name"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?>
+                                </p>
+                            </a>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    <?php } ?>
 </div>

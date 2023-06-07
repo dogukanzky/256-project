@@ -3,7 +3,7 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (isset($_SESSION["user_id"])) {
-        header("Location: /feed");
+        header("Location: /feed.php");
         exit;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -97,6 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <?= $errorMessage ?>
                 </span>
             <?php } ?>
+          
 
             <div class="form-floating">
                 <input type="password" class="form-control" id="passwordInput" name="passwordInput"
@@ -111,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <span class="text-danger" id="passwordError" style="display: none;">Please enter matching
                 passwords.</span>
 
-            <button class="btn btn-primary w-100 py-2 my-2" type="submit">Register</button>
+            <button class="btn btn-primary w-100 py-2 my-2" id="regbtn" type="submit" disabled>Register</button>
             <a href="/login" class="text-info-emphasis">Already Have an Account?</a>
 
         </form>

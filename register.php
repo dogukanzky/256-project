@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 passwords.</span>
 
             <button class="btn btn-primary w-100 py-2 my-2" id="regbtn" type="submit" disabled>Register</button>
-            <a href="/login" class="text-info-emphasis">Already Have an Account?</a>
+            <a href="/login.php" class="text-info-emphasis">Already Have an Account?</a>
 
         </form>
     </main>

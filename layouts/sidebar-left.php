@@ -7,7 +7,7 @@ $url = explode(".", $_SERVER['REQUEST_URI'])[0];
     style="width: 280px;top:81px;height:calc(100% - 81px);left:0;">
     <ul class="nav nav-pills flex-column mb-auto">
         <li>
-            <a href="/feed"
+            <a href="/feed.php"
                 class="nav-link <?= $url === "/feed" ? "active" : "" ?> text-white d-flex align-items-center"
                 aria-current="page">
                 <iconify-icon class="me-1" height="32" width="32" icon="line-md:text-box"></iconify-icon>
@@ -15,21 +15,21 @@ $url = explode(".", $_SERVER['REQUEST_URI'])[0];
             </a>
         </li>
         <li>
-            <a href="/search"
+            <a href="/search.php"
                 class="nav-link <?= $url === "/search" ? "active" : "" ?> text-white d-flex align-items-center">
                 <iconify-icon class="me-1" height="32" width="32" icon="line-md:search"></iconify-icon>
                 Search
             </a>
         </li>
         <li>
-            <a href="/profile"
+            <a href="/profile.php"
                 class="nav-link <?= $url === "/profile" ? "active" : "" ?> text-white d-flex align-items-center">
                 <iconify-icon class="me-1" height="32" width="32" icon="line-md:account"></iconify-icon>
                 Profile
             </a>
         </li>
         <li>
-            <a href="/settings"
+            <a href="/settings.php"
                 class="nav-link <?= $url === "/settings" ? "active" : "" ?> text-white d-flex align-items-center">
                 <iconify-icon class="me-1" height="32" width="32" icon="line-md:grid-3-filled"></iconify-icon>
                 Settings

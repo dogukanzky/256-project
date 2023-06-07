@@ -4,7 +4,7 @@
 
     <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
-            <a href="/friend-requests" class="text-decoration-none">
+            <a href="/friend-requests.php" class="text-decoration-none">
                 <h4 class="my-0 fw-normal d-flex align-items-center">
                     <iconify-icon icon="line-md:account-add" width="32" height="32"></iconify-icon>Friend Requests
                 </h4>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="/friend-requests" class="text-decoration-none mx-auto">
+                <a href="/friend-requests.php" class="text-decoration-none mx-auto">
                     Show More
                 </a>
             </div>
@@ -45,7 +45,7 @@
 
     <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
-            <a href="/notifications" class="text-decoration-none">
+            <a href="/notifications.php" class="text-decoration-none">
                 <h4 class="my-0 fw-normal d-flex align-items-center">
                     <iconify-icon icon="line-md:bell" width="32" height="32"></iconify-icon>Notifications
                 </h4>
@@ -82,7 +82,7 @@
                         </div>
                     </a>
                 </div>
-                <a href="/notifications" class="text-decoration-none mx-auto">
+                <a href="/notifications.php" class="text-decoration-none mx-auto">
                     Show More
                 </a>
             </div>
@@ -93,7 +93,7 @@
 
     <div class="card mb-4 rounded-3 shadow-sm">
         <div class="card-header py-3">
-            <a href="/friends" class="text-decoration-none">
+            <a href="/friends.php" class="text-decoration-none">
                 <h4 class="my-0 fw-normal d-flex align-items-center">
                     <iconify-icon icon="line-md:account-small" width="32" height="32"></iconify-icon>Friends
                 </h4>
@@ -121,7 +121,7 @@
                         <p class="mb-0">Friend 3</p>
                     </a>
                 </div>
-                <a href="/friends" class="text-decoration-none mx-auto">
+                <a href="/friends.php" class="text-decoration-none mx-auto">
                     Show More
                 </a>
             </div>

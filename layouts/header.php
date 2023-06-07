@@ -22,7 +22,7 @@ if (isset($_SESSION["user_id"])) {
         <div class="d-flex align-items-center flex-fill">
             <form class="w-100" role="search" action="search.php">
                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search" name="q"
-                    value="<?= filter_var($query_text, FILTER_SANITIZE_FULL_SPECIAL_CHARS) ?? "" ?>">
+                    value="<?= isset($query_text) ? filter_var($query_text, FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "" ?>">
             </form>
         </div>
         <div class="flex-shrink-0 dropdown d-flex justify-content-end pe-5" style="width:320px;">
@@ -37,7 +37,7 @@ if (isset($_SESSION["user_id"])) {
                 <?= $_USER["name"] . " " . $_USER["last_name"] ?>
             </a>
             <ul class="dropdown-menu text-small shadow">
-                <li><a class="dropdown-item" href="/sign-out">Sign out</a></li>
+                <li><a class="dropdown-item" href="/sign-out.php">Sign out</a></li>
             </ul>
         </div>
 

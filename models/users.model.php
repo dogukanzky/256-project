@@ -27,6 +27,19 @@ class UsersModel
         return $this->db->lastInsertId();
     }
 
+    public function update_User($userId, $name, $last_name, $email, $birthday, $password)
+    {
+        $sql = "UPDATE users SET name=?, last_name=?, email=?,birthday=?, password=? WHERE id=?";
+
+        // Assuming you have a database connection object stored in the variable $conn
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([$name, $last_name, $email, $birthday, $password]);
+
+
+        // Additional code if needed, such as error handling or success messages
+    }
+
+
     public function searchUsers($text)
     {
         $sql = "SELECT * FROM users WHERE name LIKE ? OR last_name LIKE ?";

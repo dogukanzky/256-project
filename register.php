@@ -1,5 +1,5 @@
 <?php
-session_start();
+include($_SERVER["DOCUMENT_ROOT"] . "/core/__init__.php");
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (isset($_SESSION["user_id"])) {
@@ -8,8 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST)) {
-        include($_SERVER["DOCUMENT_ROOT"] . "/core/db.php");
-        include($_SERVER["DOCUMENT_ROOT"] . "/models/users.model.php");
 
         extract($_POST); // email, pass, username
 
@@ -97,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <?= $errorMessage ?>
                 </span>
             <?php } ?>
-          
+
 
             <div class="form-floating">
                 <input type="password" class="form-control" id="passwordInput" name="passwordInput"

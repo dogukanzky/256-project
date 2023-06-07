@@ -1,6 +1,5 @@
 <?php
-session_start();
-include($_SERVER["DOCUMENT_ROOT"] . "/core/db.php");
+include($_SERVER["DOCUMENT_ROOT"] . "/core/__init__.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_SESSION["user_id"])) {
@@ -10,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($_POST)) {
         extract($_POST); // $email, $pass
-        include($_SERVER["DOCUMENT_ROOT"] . "/models/users.model.php");
         $user = new UsersModel($db);
         $logged_in_user = $user->checkUserAuth($email, $pass);
 

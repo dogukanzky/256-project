@@ -1,19 +1,19 @@
-Register New User
-Login User
-Edit User
-Create Post
-Edit Post
-Delete Post
-List Post
-Comment on post
-Eddit Comment
-Delete Comment
-Like Unlike Post
-Search Users
-Send Friend Invitation
-Accept Reject Friend Invitiation
-List Friends
-Remove Friend
+Register New User <br>
+Login User <br>
+Edit User <br>
+Create Post <br>
+Edit Post <br>
+Delete Post <br>
+List Post <br>
+Comment on post <br>
+Eddit Comment <br>
+Delete Comment <br>
+Like Unlike Post <br>
+Search Users <br>
+Send Friend Invitation <br>
+Accept Reject Friend Invitiation <br>
+List Friends <br>
+Remove Friend <br>
 
 ##### USEFUL LINKS
 

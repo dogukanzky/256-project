@@ -144,12 +144,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     Remember me
                 </label>
             </div>
-            <button class="btn btn-primary w-100 py-2 my-2" type="submit">Sign in</button>
+            <button class="btn btn-primary w-100 py-2 my-2" type="submit" id="logbtn" disabled>Sign in</button>
             <a href="/register" class=" text-info-emphasis">Don't you have an Account?</a>
 
         </form>
     </main>
     <?php include($_SERVER["DOCUMENT_ROOT"] . "/core/scripts.php"); ?>
+    <script src="/src/register/js/login_check.js"></script>
 </body>
 
 </html>

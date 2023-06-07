@@ -101,8 +101,8 @@ class UsersModel
     public function getFriends($user_id, $limit = 0)
     {
         $sql = "SELECT * FROM users
-        WHERE EXISTS(SELECT * FROM friends WHERE inviter_id IN ($user_id, users.id) AND invited_id IN ($user_id, users.id))
-        AND NOT users.id = $user_id
+        WHERE EXISTS(SELECT * FROM friends WHERE inviter_id IN ($user_id, users.id) AND invited_id IN ($user_id, users.id) AND status = 1)
+        AND NOT users.id = $user_id 
         ";
 
         if ($limit > 0) {

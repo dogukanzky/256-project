@@ -65,6 +65,26 @@ class PostsModel
         $postsArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $postsArr;
     }
+    public function getFeed($user_id, $page, $size)
+    {
+        $offset = ($page - 1) * $size;
+        $query = "SELECT p.*, EXISTS(SELECT * FROM post_likes WHERE post_id = p.id AND user_id = $user_id) \"is_liked\" ,
+        EXISTS(SELECT * FROM posts WHERE id = p.id AND user_id = $user_id) \"owner\" ,
+        u.picture as \"user.picture\", u.name as \"user.name\",
+        u.last_name as \"user.last_name\"
+        FROM posts p 
+        JOIN users u ON p.user_id = u.id
+        WHERE user_id IN (
+            SELECT id FROM users
+        WHERE EXISTS(SELECT * FROM friends WHERE inviter_id IN ($user_id, users.id) AND invited_id IN ($user_id, users.id) AND status=1)
+        AND NOT users.id = $user_id
+        ) ORDER BY created_at DESC
+        LIMIT $size OFFSET $offset";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $postsArr = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $postsArr;
+    }
     public function checkUserOwnPost($user_id, $post_id)
     {
         $query = "SELECT id FROM posts WHERE user_id = ? AND id = ?";

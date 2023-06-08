@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         </form>
     </main>
     <?php include($_SERVER["DOCUMENT_ROOT"] . "/core/scripts.php"); ?>
-    <script src="/src/register/js/login_check.js"></script>
+    <script src="/src/register/login_check.js"></script>
 </body>
 
 </html>

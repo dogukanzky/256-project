@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
             </div>
             <?php if (isset($post["image"]) && $post["image"]) { ?>
                 <div style="position:relative">
-                    <img src="<?= $post['image'] ?>" class="card-img-top" alt="..." id="post-image">
+                    <img src="<?= $post["image"] ?>" class="card-img-top" alt="..." id="post-image">
                 </div>
             <?php } ?>
             <div class="card-body">

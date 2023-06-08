@@ -1,3 +1,29 @@
+function handleLike() {
+  const id = $(this).attr("data-post-id");
+
+  $.ajax({
+    method: "POST",
+    url: "/like-post.php",
+    data: {
+      post_id: id,
+    },
+  })
+    .done((d, res, o) => {
+      if (res === "success") {
+        const icon = $(this).find("iconify-icon").attr("icon");
+        $(this)
+          .find("iconify-icon")
+          .attr(
+            "icon",
+            icon === "line-md:heart" ? "line-md:heart-filled" : "line-md:heart"
+          );
+      }
+    })
+    .fail((...res) => {
+      console.log("Error:", res);
+    });
+}
+
 function renderSingleCard(postData) {
   // Create the main card element
   const card = document.createElement("div");
@@ -68,10 +94,14 @@ function renderSingleCard(postData) {
   // Create the card image
   if (postData["image"]) {
     const cardImage = document.createElement("img");
-    cardImage.src = "/src/images/background.jpg";
+    cardImage.src = postData["image"];
     cardImage.classList.add("card-img-top");
-    cardImage.alt = "...";
-    card.appendChild(cardImage);
+
+    const cardLink = document.createElement("a");
+    cardLink.href = "/post-detail?id=" + postData["id"];
+    cardLink.appendChild(cardImage);
+
+    card.appendChild(cardLink);
   }
 
   // Create the card body
@@ -87,8 +117,9 @@ function renderSingleCard(postData) {
 
   // Create the like button
   const likeButton = document.createElement("a");
-  likeButton.href = "#";
+  likeButton.setAttribute("data-post-id", postData["id"]);
   likeButton.classList.add("btn", "btn-dark", "text-danger");
+  likeButton.onclick = handleLike;
   cardBody.appendChild(likeButton);
 
   // Create the like button content

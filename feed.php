@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <body data-bs-theme="dark">
     <?php include($_SERVER["DOCUMENT_ROOT"] . "/layouts/main.php"); ?>
-    <div class="d-flex flex-column align-items-center gap-3" id="post-list">
+    <div class="d-flex flex-column align-items-center gap-3 pb-5" id="post-list">
         <a href="new-post.php"
             class="btn btn-outline-primary border border-2 border-primary d-flex align-items-center justify-content-center"
             style="width:600px;border-style:dashed!important;"><iconify-icon icon="line-md:plus" width="24"

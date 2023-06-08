@@ -42,14 +42,14 @@ class UsersModel
 
     public function searchUsers($text, $user_id)
     {
-        $sql = "SELECT * FROM users WHERE name LIKE ? OR last_name LIKE ?";
+        $sql = "SELECT * FROM users WHERE name LIKE ? OR last_name LIKE ? OR email LIKE ?";
 
         if ($user_id)
             $sql = "SELECT *, EXISTS(SELECT * FROM friends WHERE inviter_id IN ($user_id, users.id) AND invited_id IN ($user_id, users.id) ) \"is_friend\" 
-        FROM users WHERE (name LIKE ? OR last_name LIKE ?) AND NOT users.id = $user_id";
+        FROM users WHERE (name LIKE ? OR last_name LIKE ?  OR email LIKE ?) AND NOT users.id = $user_id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(["%" . $text . "%", "%" . $text . "%"]);
+        $stmt->execute(["%" . $text . "%", "%" . $text . "%", "%" . $text . "%"]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     }

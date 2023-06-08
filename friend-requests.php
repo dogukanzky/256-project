@@ -9,12 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION["user_id"])) {
     // Get the inviter and invited IDs
     extract($_POST);
     $friendModel = new FriendsModel($db);
+    $notificationModel = new NotificationsModel($db);
+    $userModel = new UsersModel($db);
     $inviterId = $_SESSION["user_id"];
     $invitedId = $friend_id;
 
 
 
-
+    $user = $userModel->findOne($_SESSION["user_id"]);
+    $notificationModel->create(
+        $friend_id,
+        filter_var($user["name"] . " " . $user["last_name"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) . " has sent you friend request!",
+        "/profile.php?id={$user["id"]}"
+    );
     // Call the create function from friends.model.php to add the friend request
     $friendModel->create($inviterId, $invitedId);
     header("HTTP/1.1 200 OK");
@@ -33,9 +40,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'PATCH' && isset($_SESSION["user_id"])) {
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_SESSION["user_id"])) {
     parse_str(file_get_contents('php://input'), $_DELETE);
     $friendModel = new FriendsModel($db);
+    $notificationModel = new NotificationsModel($db);
+    $userModel = new UsersModel($db);
 
     // Call the update function from friends.model.php to add the friend request
     $friendModel->update($_DELETE["inviter_id"], $_SESSION["user_id"], 0);
+    $user = $userModel->findOne($_SESSION["user_id"]);
+    $notificationModel->create(
+        $_DELETE["inviter_id"],
+        filter_var($user["name"] . " " . $user["last_name"], FILTER_SANITIZE_FULL_SPECIAL_CHARS) . " has removed you from friends!",
+        "/profile.php?id={$user["id"]}"
+    );
     header("HTTP/1.1 200 OK");
     exit();
 }

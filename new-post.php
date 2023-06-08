@@ -5,8 +5,9 @@ include_once($_SERVER["DOCUMENT_ROOT"] . "/helpers/get-file.helper.php");
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     extract($_POST);
     $post = new PostsModel($db);
-    $post->addPost($_SESSION['user_id'], $text, getFile('postImg', "post-img-"));
-
+    $id = $post->addPost($_SESSION['user_id'], $text, getFile('postImg', "post-img-"));
+    header("Location: /post-detail.php?id=$id");
+    exit();
 }
 
 ?>

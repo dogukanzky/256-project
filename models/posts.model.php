@@ -18,6 +18,7 @@ class PostsModel
         $query = "INSERT INTO posts (text, image, user_id) VALUES (?,?,?)";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$text, $image, $user_id]);
+        return $this->db->lastInsertId();
     }
     public function updatePost($id, $text, $image)
     {

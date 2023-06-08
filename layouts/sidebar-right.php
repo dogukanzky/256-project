@@ -1,9 +1,34 @@
 <?php
 $friendModel = new FriendsModel($db);
 $userModel = new UsersModel($db);
+$notificationModel = new NotificationsModel($db);
+
 
 $friend_requests = $friendModel->findRequests($_SESSION["user_id"]);
 $friends = $userModel->getFriends($_SESSION["user_id"], 3);
+$notifications = $notificationModel->findAllUserNotifications($_SESSION["user_id"], 3);
+
+
+function getTimeDifference($givenDate)
+{
+    $now = time(); // Current Unix timestamp
+    $given = strtotime($givenDate); // Given Unix timestamp
+
+
+    $difference = $now - $given; // Calculate the difference in seconds
+
+
+    if ($difference < 3600) { // Less than 1 hour
+        $minutes = ceil($difference / 60);
+        return $minutes . ' minute' . ($minutes > 1 ? 's' : '');
+    } elseif ($difference < 86400) { // Less than 24 hours
+        $hours = floor($difference / 3600);
+        return $hours . ' hour' . ($hours > 1 ? 's' : '');
+    } else { // More than 24 hours
+        $days = floor($difference / 86400);
+        return $days . ' day' . ($days > 1 ? 's' : '');
+    }
+}
 
 
 ?>
@@ -56,52 +81,39 @@ $friends = $userModel->getFriends($_SESSION["user_id"], 3);
         </div>
     <?php } ?>
 
-
-    <div class="card mb-4 rounded-3 shadow-sm">
-        <div class="card-header py-3">
-            <a href="/notifications.php" class="text-decoration-none">
-                <h4 class="my-0 fw-normal d-flex align-items-center">
-                    <iconify-icon icon="line-md:bell" width="32" height="32"></iconify-icon>Notifications
-                </h4>
-            </a>
-        </div>
-        <div class="card-body">
-            <div class="d-flex flex-column gap-1 align-items-center justify-content-center">
-                <div class="list-group w-100">
-                    <a href="#" class="list-group-item list-group-item-action d-flex gap-2 ps-1 w-100"
-                        aria-current="true">
-                        <iconify-icon icon="line-md:circle-to-confirm-circle-transition" class="text-success" width="24"
-                            height="24"></iconify-icon>
-                        <div class="d-flex w-100 justify-content-between gap-1">
-                            <p class="mb-0">Notification 1</p>
-                            <small class="opacity-50 text-nowrap">now</small>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex gap-2 ps-1 w-100"
-                        aria-current="true">
-                        <iconify-icon icon="line-md:circle-to-confirm-circle-transition" class="text-success" width="24"
-                            height="24"></iconify-icon>
-                        <div class="d-flex w-100 justify-content-between gap-1">
-                            <p class="mb-0">Notification 2</p>
-                            <small class="opacity-50 text-nowrap">now</small>
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action d-flex gap-2 ps-1 w-100"
-                        aria-current="true">
-                        <iconify-icon icon="line-md:circle-to-confirm-circle-transition" width="24"
-                            height="24"></iconify-icon>
-                        <div class="d-flex w-100 justify-content-between gap-1">
-                            <p class="mb-0">Notification 3</p>
-                            <small class="opacity-50 text-nowrap">now</small>
-                        </div>
-                    </a>
-                </div>
-                <a href="/notifications.php" class="text-decoration-none mx-auto">
-                    Show More
+    <?php if (count($notifications)) { ?>
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <a href="/notifications.php" class="text-decoration-none">
+                    <h4 class="my-0 fw-normal d-flex align-items-center">
+                        <iconify-icon icon="line-md:bell" width="32" height="32"></iconify-icon>Notifications
+                    </h4>
                 </a>
             </div>
+            <div class="card-body">
+                <div class="d-flex flex-column gap-1 align-items-center justify-content-center">
+                    <div class="list-group w-100">
+                        <?php foreach ($notifications as $notification) { ?>
+                            <a href="/notifications.php?id=<?= $notification["id"] ?>"
+                                class="list-group-item list-group-item-action d-flex gap-2 ps-1 w-100" aria-current="true">
+                                <iconify-icon icon="line-md:circle-to-confirm-circle-transition"
+                                    class="text-<?= $notification["is_seen"] == 1 ? "secondary" : "success" ?>" width="24"
+                                    height="24"></iconify-icon>
+                                <div class="d-flex w-100 justify-content-between gap-1">
+                                    <p class="mb-0" style="font-size:12px">
+                                        <?= $notification["text"] ?>
+                                    </p>
+                                    <small class="opacity-50 text-nowrap">
+                                        <?= getTimeDifference($notification["created_at"]) ?>
+                                    </small>
+                                </div>
+                            </a>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    <?php } ?>
 
 
     <?php if (count($friends)) { ?>

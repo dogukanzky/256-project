@@ -1,5 +1,28 @@
 <?php
 include($_SERVER["DOCUMENT_ROOT"] . "/core/__init__.php");
+
+function checkPasswordValidity($password)
+{
+    if (strlen($password) <= 8) {
+        return false;
+    }
+
+    if (!preg_match('/[0-9]/', $password)) {
+        return false;
+    }
+
+    if (!preg_match('/[A-Z]/', $password)) {
+        return false;
+    }
+
+    if (!preg_match('/[a-z]/', $password)) {
+        return false;
+    }
+
+    return true;
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     if (isset($_SESSION["user_id"])) {
@@ -18,12 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $errorMessage = "Email already exists";
 
         } else {
+            $isValid = checkPasswordValidity($passwordInput);
+            if (!$isValid || $passwordAgainInput != $passwordInput) {
+                header("HTTP/1.1 400 Error");
+                exit;
+            }
+
             $hashPassw = password_hash($passwordInput, PASSWORD_BCRYPT);
             $new_user_id = $user->create($name, $last_name, $email, $hashPassw);
             $_SESSION["user_id"] = $new_user_id;
 
             // Redirect to the login page
-            header("Location: /profile?register=ok");
+            header("Location: /settings.php");
             exit;
         }
 
@@ -107,8 +136,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     placeholder="Password Again">
                 <label for="passwordAgainInput">Password Again</label>
             </div>
-            <span class="text-danger" id="passwordError" style="display: none;">Please enter matching
-                passwords.</span>
+            <div class="text-danger" id="passwordError" style="display: none;"><iconify-icon
+                    icon="pajamas:warning-solid" class="me-2"></iconify-icon>Please enter matching
+                passwords.</div>
+
+            <div class="text-danger" id="length" style="display: none;"><iconify-icon icon="pajamas:warning-solid"
+                    class="me-2"></iconify-icon>Password must be at least 8 characters.</div>
+            <div class="text-danger" id="small" style="display: none;"><iconify-icon icon="pajamas:warning-solid"
+                    class="me-2"></iconify-icon>Password must include at least 1 small
+                character.</div>
+            <div class="text-danger" id="capital" style="display: none;"><iconify-icon icon="pajamas:warning-solid"
+                    class="me-2"></iconify-icon>Password must include at least 1 capital
+                character.</div>
+            <div class="text-danger" id="number" style="display: none;"><iconify-icon icon="pajamas:warning-solid"
+                    class="me-2"></iconify-icon>Password must include at least 1 numeric
+                character.</div>
 
             <button class="btn btn-primary w-100 py-2 my-2" id="regbtn" type="submit" disabled>Register</button>
             <a href="/login.php" class="text-info-emphasis">Already Have an Account?</a>

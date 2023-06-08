@@ -1,3 +1,4 @@
+<?php date_default_timezone_set('Europe/Istanbul'); ?>
 <?php session_start() ?>
 <?php include($_SERVER["DOCUMENT_ROOT"] . "/core/db.php"); ?>
 <?php include($_SERVER["DOCUMENT_ROOT"] . "/models/users.model.php"); ?>
@@ -5,3 +6,4 @@
 <?php include($_SERVER["DOCUMENT_ROOT"] . "/models/friends.model.php"); ?>
 <?php include($_SERVER["DOCUMENT_ROOT"] . "/models/post-likes.model.php"); ?>
 <?php include($_SERVER["DOCUMENT_ROOT"] . "/models/comments.model.php"); ?>
+<?php include($_SERVER["DOCUMENT_ROOT"] . "/models/notifications.model.php"); ?>
